@@ -107,7 +107,8 @@ class JsonCoder(Coder):
         # explicitly decode from UTF-8 bytes first, as otherwise
         # json.loads() will first have to detect the correct UTF-
         # encoding used.
-        return json.loads(value.decode(), object_hook=object_hook)
+        return json.loads(value if isinstance(value, str) else value.decode(), object_hook=object_hook)
+
 
 
 class PickleCoder(Coder):
